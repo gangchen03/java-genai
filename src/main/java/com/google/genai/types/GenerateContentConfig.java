@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -33,7 +34,7 @@ import java.util.Optional;
  * <https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/content-generation-parameters>`_.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerateContentConfig.Builder.class)
+@JsonDeserialize(builder = GenerateContentConfig.Builder.class)
 public abstract class GenerateContentConfig extends JsonSerializable {
   /**
    * Instructions for the model to steer it toward better performance. For example, "Answer as
@@ -183,6 +184,12 @@ public abstract class GenerateContentConfig extends JsonSerializable {
   /** Builder for GenerateContentConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GenerateContentConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerateContentConfig.Builder();
+    }
+
     @JsonProperty("systemInstruction")
     public abstract Builder systemInstruction(Content systemInstruction);
 

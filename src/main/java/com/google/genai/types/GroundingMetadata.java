@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Metadata returned to client when grounding is enabled. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GroundingMetadata.Builder.class)
+@JsonDeserialize(builder = GroundingMetadata.Builder.class)
 public abstract class GroundingMetadata extends JsonSerializable {
   /** List of supporting references retrieved from specified grounding source. */
   @JsonProperty("groundingChunks")
@@ -64,6 +65,12 @@ public abstract class GroundingMetadata extends JsonSerializable {
   /** Builder for GroundingMetadata. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GroundingMetadata.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GroundingMetadata.Builder();
+    }
+
     @JsonProperty("groundingChunks")
     public abstract Builder groundingChunks(List<GroundingChunk> groundingChunks);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -35,7 +36,7 @@ import java.util.Optional;
  * based on the prompt.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ControlReferenceImage.Builder.class)
+@JsonDeserialize(builder = ControlReferenceImage.Builder.class)
 public abstract class ControlReferenceImage extends JsonSerializable {
   /** The reference image for the editing operation. */
   @JsonProperty("referenceImage")
@@ -45,7 +46,7 @@ public abstract class ControlReferenceImage extends JsonSerializable {
   @JsonProperty("referenceId")
   public abstract Optional<Integer> referenceId();
 
-  /** The type of the reference image. */
+  /** The type of the reference image. Only set by the SDK. */
   @JsonProperty("referenceType")
   public abstract Optional<String> referenceType();
 
@@ -64,6 +65,12 @@ public abstract class ControlReferenceImage extends JsonSerializable {
   /** Builder for ControlReferenceImage. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ControlReferenceImage.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ControlReferenceImage.Builder();
+    }
+
     @JsonProperty("referenceImage")
     public abstract Builder referenceImage(Image referenceImage);
 

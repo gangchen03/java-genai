@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -29,7 +30,7 @@ import java.util.Optional;
  * model and customer provided model routing preference.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerationConfigRoutingConfigAutoRoutingMode.Builder.class)
+@JsonDeserialize(builder = GenerationConfigRoutingConfigAutoRoutingMode.Builder.class)
 public abstract class GenerationConfigRoutingConfigAutoRoutingMode extends JsonSerializable {
   /** The model routing preference. */
   @JsonProperty("modelRoutingPreference")
@@ -46,6 +47,15 @@ public abstract class GenerationConfigRoutingConfigAutoRoutingMode extends JsonS
   /** Builder for GenerationConfigRoutingConfigAutoRoutingMode. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /**
+     * For internal usage. Please use `GenerationConfigRoutingConfigAutoRoutingMode.builder()` for
+     * instantiation.
+     */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerationConfigRoutingConfigAutoRoutingMode.Builder();
+    }
+
     @JsonProperty("modelRoutingPreference")
     public abstract Builder modelRoutingPreference(String modelRoutingPreference);
 

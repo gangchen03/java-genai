@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Metadata describes the input video content. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_VideoMetadata.Builder.class)
+@JsonDeserialize(builder = VideoMetadata.Builder.class)
 public abstract class VideoMetadata extends JsonSerializable {
   /** Optional. The end offset of the video. */
   @JsonProperty("endOffset")
@@ -47,6 +48,12 @@ public abstract class VideoMetadata extends JsonSerializable {
   /** Builder for VideoMetadata. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `VideoMetadata.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_VideoMetadata.Builder();
+    }
+
     @JsonProperty("endOffset")
     public abstract Builder endOffset(String endOffset);
 

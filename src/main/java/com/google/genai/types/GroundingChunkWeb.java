@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Chunk from the web. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GroundingChunkWeb.Builder.class)
+@JsonDeserialize(builder = GroundingChunkWeb.Builder.class)
 public abstract class GroundingChunkWeb extends JsonSerializable {
   /** Title of the chunk. */
   @JsonProperty("title")
@@ -47,6 +48,12 @@ public abstract class GroundingChunkWeb extends JsonSerializable {
   /** Builder for GroundingChunkWeb. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GroundingChunkWeb.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GroundingChunkWeb.Builder();
+    }
+
     @JsonProperty("title")
     public abstract Builder title(String title);
 

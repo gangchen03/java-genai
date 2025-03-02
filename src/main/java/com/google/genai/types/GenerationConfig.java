@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Generation config. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerationConfig.Builder.class)
+@JsonDeserialize(builder = GenerationConfig.Builder.class)
 public abstract class GenerationConfig extends JsonSerializable {
   /** Optional. If enabled, audio timestamp will be included in the request to the model. */
   @JsonProperty("audioTimestamp")
@@ -111,6 +112,12 @@ public abstract class GenerationConfig extends JsonSerializable {
   /** Builder for GenerationConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GenerationConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerationConfig.Builder();
+    }
+
     @JsonProperty("audioTimestamp")
     public abstract Builder audioTimestamp(boolean audioTimestamp);
 

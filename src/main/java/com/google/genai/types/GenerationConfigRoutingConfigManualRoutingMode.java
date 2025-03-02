@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** When manual routing is set, the specified model will be used directly. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerationConfigRoutingConfigManualRoutingMode.Builder.class)
+@JsonDeserialize(builder = GenerationConfigRoutingConfigManualRoutingMode.Builder.class)
 public abstract class GenerationConfigRoutingConfigManualRoutingMode extends JsonSerializable {
   /** The model name to use. Only the public LLM models are accepted. e.g. 'gemini-1.5-pro-001'. */
   @JsonProperty("modelName")
@@ -43,6 +44,15 @@ public abstract class GenerationConfigRoutingConfigManualRoutingMode extends Jso
   /** Builder for GenerationConfigRoutingConfigManualRoutingMode. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /**
+     * For internal usage. Please use `GenerationConfigRoutingConfigManualRoutingMode.builder()` for
+     * instantiation.
+     */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerationConfigRoutingConfigManualRoutingMode.Builder();
+    }
+
     @JsonProperty("modelName")
     public abstract Builder modelName(String modelName);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Safety rating corresponding to the generated content. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_SafetyRating.Builder.class)
+@JsonDeserialize(builder = SafetyRating.Builder.class)
 public abstract class SafetyRating extends JsonSerializable {
   /** Output only. Indicates whether the content was filtered out because of this rating. */
   @JsonProperty("blocked")
@@ -63,6 +64,12 @@ public abstract class SafetyRating extends JsonSerializable {
   /** Builder for SafetyRating. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `SafetyRating.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_SafetyRating.Builder();
+    }
+
     @JsonProperty("blocked")
     public abstract Builder blocked(boolean blocked);
 

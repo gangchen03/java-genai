@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -29,7 +30,7 @@ import java.util.Optional;
  * https://cloud.google.com/products/agent-builder
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_VertexAISearch.Builder.class)
+@JsonDeserialize(builder = VertexAISearch.Builder.class)
 public abstract class VertexAISearch extends JsonSerializable {
   /**
    * Required. Fully-qualified Vertex AI Search data store resource ID. Format:
@@ -49,6 +50,12 @@ public abstract class VertexAISearch extends JsonSerializable {
   /** Builder for VertexAISearch. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `VertexAISearch.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_VertexAISearch.Builder();
+    }
+
     @JsonProperty("datastore")
     public abstract Builder datastore(String datastore);
 

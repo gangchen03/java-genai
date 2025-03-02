@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** The speech generation configuration. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_SpeechConfig.Builder.class)
+@JsonDeserialize(builder = SpeechConfig.Builder.class)
 public abstract class SpeechConfig extends JsonSerializable {
   /** The configuration for the speaker to use. */
   @JsonProperty("voiceConfig")
@@ -43,6 +44,12 @@ public abstract class SpeechConfig extends JsonSerializable {
   /** Builder for SpeechConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `SpeechConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_SpeechConfig.Builder();
+    }
+
     @JsonProperty("voiceConfig")
     public abstract Builder voiceConfig(VoiceConfig voiceConfig);
 

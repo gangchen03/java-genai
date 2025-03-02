@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Usage metadata about response(s). */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerateContentResponseUsageMetadata.Builder.class)
+@JsonDeserialize(builder = GenerateContentResponseUsageMetadata.Builder.class)
 public abstract class GenerateContentResponseUsageMetadata extends JsonSerializable {
   /** Output only. Number of tokens in the cached part in the input (the cached content). */
   @JsonProperty("cachedContentTokenCount")
@@ -58,6 +59,15 @@ public abstract class GenerateContentResponseUsageMetadata extends JsonSerializa
   /** Builder for GenerateContentResponseUsageMetadata. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /**
+     * For internal usage. Please use `GenerateContentResponseUsageMetadata.builder()` for
+     * instantiation.
+     */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerateContentResponseUsageMetadata.Builder();
+    }
+
     @JsonProperty("cachedContentTokenCount")
     public abstract Builder cachedContentTokenCount(Integer cachedContentTokenCount);
 

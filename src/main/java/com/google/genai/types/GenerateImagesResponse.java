@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** The output images response. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerateImagesResponse.Builder.class)
+@JsonDeserialize(builder = GenerateImagesResponse.Builder.class)
 public abstract class GenerateImagesResponse extends JsonSerializable {
   /** List of generated images. */
   @JsonProperty("generatedImages")
@@ -44,6 +45,12 @@ public abstract class GenerateImagesResponse extends JsonSerializable {
   /** Builder for GenerateImagesResponse. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GenerateImagesResponse.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerateImagesResponse.Builder();
+    }
+
     @JsonProperty("generatedImages")
     public abstract Builder generatedImages(List<GeneratedImage> generatedImages);
 

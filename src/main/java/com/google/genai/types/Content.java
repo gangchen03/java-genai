@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Contains the multi-part content of a message. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Content.Builder.class)
+@JsonDeserialize(builder = Content.Builder.class)
 public abstract class Content extends JsonSerializable {
   /**
    * List of parts that constitute a single message. Each part may have a different IANA MIME type.
@@ -54,6 +55,12 @@ public abstract class Content extends JsonSerializable {
   /** Builder for Content. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Content.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Content.Builder();
+    }
+
     @JsonProperty("parts")
     public abstract Builder parts(List<Part> parts);
 

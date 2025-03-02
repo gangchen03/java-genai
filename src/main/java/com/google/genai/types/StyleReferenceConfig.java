@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Configuration for a Style reference image. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_StyleReferenceConfig.Builder.class)
+@JsonDeserialize(builder = StyleReferenceConfig.Builder.class)
 public abstract class StyleReferenceConfig extends JsonSerializable {
   /** A text description of the style to use for the generated image. */
   @JsonProperty("styleDescription")
@@ -43,6 +44,12 @@ public abstract class StyleReferenceConfig extends JsonSerializable {
   /** Builder for StyleReferenceConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `StyleReferenceConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_StyleReferenceConfig.Builder();
+    }
+
     @JsonProperty("styleDescription")
     public abstract Builder styleDescription(String styleDescription);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Grounding support. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GroundingSupport.Builder.class)
+@JsonDeserialize(builder = GroundingSupport.Builder.class)
 public abstract class GroundingSupport extends JsonSerializable {
   /**
    * Confidence score of the support references. Ranges from 0 to 1. 1 is the most confident. This
@@ -59,6 +60,12 @@ public abstract class GroundingSupport extends JsonSerializable {
   /** Builder for GroundingSupport. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GroundingSupport.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GroundingSupport.Builder();
+    }
+
     @JsonProperty("confidenceScores")
     public abstract Builder confidenceScores(List<Float> confidenceScores);
 

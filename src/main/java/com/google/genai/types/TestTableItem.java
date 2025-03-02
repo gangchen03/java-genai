@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** None */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_TestTableItem.Builder.class)
+@JsonDeserialize(builder = TestTableItem.Builder.class)
 public abstract class TestTableItem extends JsonSerializable {
   /** The name of the test. This is used to derive the replay id. */
   @JsonProperty("name")
@@ -74,6 +75,12 @@ public abstract class TestTableItem extends JsonSerializable {
   /** Builder for TestTableItem. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `TestTableItem.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_TestTableItem.Builder();
+    }
+
     @JsonProperty("name")
     public abstract Builder name(String name);
 

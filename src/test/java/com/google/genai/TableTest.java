@@ -37,9 +37,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import com.google.common.collect.ImmutableSet;
 
 /** Sample class to prototype GenAI SDK functionalities. */
 public final class TableTest {
+  // TODO(b/384946033): Automate url safe parameter names retrieval.
+  private static final ImmutableSet<String> URL_SAFE_BASE64_PARAMETER_NAMES =
+      ImmutableSet.of("image.imageBytes");
+
   private static String snakeToPascal(String s) {
     String[] parts = s.split("_");
     for (int i = 0; i < parts.length; i++) {
@@ -167,6 +172,8 @@ public final class TableTest {
     }
 
     Map<String, Object> fromParameters = testTableItem.parameters().get();
+    ReplaySanitizer.sanitizeMapByPath(
+        fromParameters, "image.imageBytes", new ReplayBase64Sanitizer(), false);
 
     List<DynamicTest> dynamicTests = new ArrayList<>();
     // Iterate through overloading methods and find a match.
@@ -175,7 +182,7 @@ public final class TableTest {
         List<Object> parameters = new ArrayList<>();
         for (int i = 0; i < parameterNames.size(); i++) {
           // May throw IndexOutOfBoundsException here
-          String parameterName = parameterNames.get(i);
+          String parameterName = snakeToCamel(parameterNames.get(i));
           Object fromValue = fromParameters.getOrDefault(parameterName, null);
           // May throw IllegalArgumentException here
           parameters.add(

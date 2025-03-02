@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -31,7 +32,7 @@ import java.util.Optional;
  * <https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/imagen-api>`_.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_UpscaleImageConfig.Builder.class)
+@JsonDeserialize(builder = UpscaleImageConfig.Builder.class)
 public abstract class UpscaleImageConfig extends JsonSerializable {
   /** Whether to include a reason for filtered-out images in the response. */
   @JsonProperty("includeRaiReason")
@@ -56,6 +57,12 @@ public abstract class UpscaleImageConfig extends JsonSerializable {
   /** Builder for UpscaleImageConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `UpscaleImageConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_UpscaleImageConfig.Builder();
+    }
+
     @JsonProperty("includeRaiReason")
     public abstract Builder includeRaiReason(boolean includeRaiReason);
 

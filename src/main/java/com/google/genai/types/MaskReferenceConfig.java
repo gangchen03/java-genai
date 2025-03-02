@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Configuration for a Mask reference image. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_MaskReferenceConfig.Builder.class)
+@JsonDeserialize(builder = MaskReferenceConfig.Builder.class)
 public abstract class MaskReferenceConfig extends JsonSerializable {
   /**
    * Prompts the model to generate a mask instead of you needing to provide one (unless
@@ -58,6 +59,12 @@ public abstract class MaskReferenceConfig extends JsonSerializable {
   /** Builder for MaskReferenceConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `MaskReferenceConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_MaskReferenceConfig.Builder();
+    }
+
     @JsonProperty("maskMode")
     public abstract Builder maskMode(String maskMode);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -31,7 +32,7 @@ import java.util.Optional;
  * conveyed. Using multiple fields within the same `Part` instance is considered invalid.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Part.Builder.class)
+@JsonDeserialize(builder = Part.Builder.class)
 public abstract class Part extends JsonSerializable {
   /** Metadata for a given video. */
   @JsonProperty("videoMetadata")
@@ -87,6 +88,12 @@ public abstract class Part extends JsonSerializable {
   /** Builder for Part. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Part.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Part.Builder();
+    }
+
     @JsonProperty("videoMetadata")
     public abstract Builder videoMetadata(VideoMetadata videoMetadata);
 

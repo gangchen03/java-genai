@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Defines a retrieval tool that model can call to access external knowledge. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Retrieval.Builder.class)
+@JsonDeserialize(builder = Retrieval.Builder.class)
 public abstract class Retrieval extends JsonSerializable {
   /** Optional. Deprecated. This option is no longer supported. */
   @JsonProperty("disableAttribution")
@@ -54,6 +55,12 @@ public abstract class Retrieval extends JsonSerializable {
   /** Builder for Retrieval. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Retrieval.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Retrieval.Builder();
+    }
+
     @JsonProperty("disableAttribution")
     public abstract Builder disableAttribution(boolean disableAttribution);
 

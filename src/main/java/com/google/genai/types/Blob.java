@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Content blob. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Blob.Builder.class)
+@JsonDeserialize(builder = Blob.Builder.class)
 public abstract class Blob extends JsonSerializable {
   /** Required. Raw bytes. */
   @JsonProperty("data")
@@ -47,6 +48,12 @@ public abstract class Blob extends JsonSerializable {
   /** Builder for Blob. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Blob.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Blob.Builder();
+    }
+
     @JsonProperty("data")
     public abstract Builder data(String data);
 

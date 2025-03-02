@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Config for models.generate_content parameters. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerateContentParameters.Builder.class)
+@JsonDeserialize(builder = GenerateContentParameters.Builder.class)
 public abstract class GenerateContentParameters extends JsonSerializable {
   /**
    * ID of the model to use. For a list of models, see `Google models
@@ -55,6 +56,12 @@ public abstract class GenerateContentParameters extends JsonSerializable {
   /** Builder for GenerateContentParameters. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GenerateContentParameters.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerateContentParameters.Builder();
+    }
+
     @JsonProperty("model")
     public abstract Builder model(String model);
 

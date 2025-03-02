@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Content filter results for a prompt sent in the request. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerateContentResponsePromptFeedback.Builder.class)
+@JsonDeserialize(builder = GenerateContentResponsePromptFeedback.Builder.class)
 public abstract class GenerateContentResponsePromptFeedback extends JsonSerializable {
   /** Output only. Blocked reason. */
   @JsonProperty("blockReason")
@@ -52,6 +53,15 @@ public abstract class GenerateContentResponsePromptFeedback extends JsonSerializ
   /** Builder for GenerateContentResponsePromptFeedback. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /**
+     * For internal usage. Please use `GenerateContentResponsePromptFeedback.builder()` for
+     * instantiation.
+     */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerateContentResponsePromptFeedback.Builder();
+    }
+
     @JsonProperty("blockReason")
     public abstract Builder blockReason(String blockReason);
 

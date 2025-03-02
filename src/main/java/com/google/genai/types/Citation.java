@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Source attributions for content. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Citation.Builder.class)
+@JsonDeserialize(builder = Citation.Builder.class)
 public abstract class Citation extends JsonSerializable {
   /** Output only. End index into the content. */
   @JsonProperty("endIndex")
@@ -63,6 +64,12 @@ public abstract class Citation extends JsonSerializable {
   /** Builder for Citation. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Citation.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Citation.Builder();
+    }
+
     @JsonProperty("endIndex")
     public abstract Builder endIndex(Integer endIndex);
 

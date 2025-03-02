@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** URI based data. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_FileData.Builder.class)
+@JsonDeserialize(builder = FileData.Builder.class)
 public abstract class FileData extends JsonSerializable {
   /** Required. URI. */
   @JsonProperty("fileUri")
@@ -47,6 +48,12 @@ public abstract class FileData extends JsonSerializable {
   /** Builder for FileData. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `FileData.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_FileData.Builder();
+    }
+
     @JsonProperty("fileUri")
     public abstract Builder fileUri(String fileUri);
 

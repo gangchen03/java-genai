@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Google search entry point. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_SearchEntryPoint.Builder.class)
+@JsonDeserialize(builder = SearchEntryPoint.Builder.class)
 public abstract class SearchEntryPoint extends JsonSerializable {
   /** Optional. Web content snippet that can be embedded in a web page or an app webview. */
   @JsonProperty("renderedContent")
@@ -47,6 +48,12 @@ public abstract class SearchEntryPoint extends JsonSerializable {
   /** Builder for SearchEntryPoint. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `SearchEntryPoint.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_SearchEntryPoint.Builder();
+    }
+
     @JsonProperty("renderedContent")
     public abstract Builder renderedContent(String renderedContent);
 

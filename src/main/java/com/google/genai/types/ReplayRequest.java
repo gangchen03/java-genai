@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -28,7 +29,7 @@ import java.util.Optional;
 
 /** Represents a single request in a replay. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ReplayRequest.Builder.class)
+@JsonDeserialize(builder = ReplayRequest.Builder.class)
 public abstract class ReplayRequest extends JsonSerializable {
   /** */
   @JsonProperty("method")
@@ -57,6 +58,12 @@ public abstract class ReplayRequest extends JsonSerializable {
   /** Builder for ReplayRequest. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ReplayRequest.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ReplayRequest.Builder();
+    }
+
     @JsonProperty("method")
     public abstract Builder method(String method);
 

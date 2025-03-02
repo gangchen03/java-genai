@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -34,7 +35,7 @@ import java.util.Optional;
  * google.protobuf.Timestamp
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GoogleTypeDate.Builder.class)
+@JsonDeserialize(builder = GoogleTypeDate.Builder.class)
 public abstract class GoogleTypeDate extends JsonSerializable {
   /**
    * Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year
@@ -62,6 +63,12 @@ public abstract class GoogleTypeDate extends JsonSerializable {
   /** Builder for GoogleTypeDate. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GoogleTypeDate.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GoogleTypeDate.Builder();
+    }
+
     @JsonProperty("day")
     public abstract Builder day(Integer day);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Safety settings. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_SafetySetting.Builder.class)
+@JsonDeserialize(builder = SafetySetting.Builder.class)
 public abstract class SafetySetting extends JsonSerializable {
   /** Determines if the harm block method uses probability or probability and severity scores. */
   @JsonProperty("method")
@@ -51,6 +52,12 @@ public abstract class SafetySetting extends JsonSerializable {
   /** Builder for SafetySetting. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `SafetySetting.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_SafetySetting.Builder();
+    }
+
     @JsonProperty("method")
     public abstract Builder method(String method);
 

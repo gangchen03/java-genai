@@ -37,6 +37,19 @@ public class GenerateContentResponseTest {
   private static final Part PART_FUNCTION_CALL_2 =
       Part.builder().functionCall(FUNCTION_CALL_2).thought(false).build();
   private static final Part PART_WITH_THOUGHT = Part.builder().text("text3").thought(true).build();
+  private static final Part PART_WITH_EXECUTABLE_CODE =
+      Part.builder()
+          .executableCode(
+              ExecutableCode.builder().code("executableCode").language("python").build())
+          .build();
+  private static final Part PART_WITH_CODE_EXECUTION_RESULT =
+      Part.builder()
+          .codeExecutionResult(
+              CodeExecutionResult.builder()
+                  .output("codeExecutionResult")
+                  .outcome("success")
+                  .build())
+          .build();
 
   private static final Content CONTENT_1 =
       Content.builder().parts(ImmutableList.of(PART_1)).build();
@@ -52,6 +65,14 @@ public class GenerateContentResponseTest {
       Content.builder().parts(ImmutableList.of()).build();
   private static final Content CONTENT_WITH_THOUGHT =
       Content.builder().parts(ImmutableList.of(PART_1, PART_WITH_THOUGHT)).build();
+  private static final Content CONTENT_WITH_EXECUTABLE_CODE =
+      Content.builder().parts(ImmutableList.of(PART_WITH_EXECUTABLE_CODE)).build();
+  private static final Content CONTENT_WITH_EXECUTABLE_CODE_AND_TEXT =
+      Content.builder().parts(ImmutableList.of(PART_WITH_EXECUTABLE_CODE, PART_1)).build();
+  private static final Content CONTENT_WITH_CODE_EXECUTION_RESULT =
+      Content.builder().parts(ImmutableList.of(PART_WITH_CODE_EXECUTION_RESULT)).build();
+  private static final Content CONTENT_WITH_CODE_EXECUTION_RESULT_AND_TEXT =
+      Content.builder().parts(ImmutableList.of(PART_WITH_CODE_EXECUTION_RESULT, PART_1)).build();
 
   private static final Candidate CANDIDATE_1 =
       Candidate.builder().content(CONTENT_1).finishReason("STOP").build();
@@ -247,9 +268,200 @@ public class GenerateContentResponseTest {
             .candidates(ImmutableList.of(CANDIDATE_WITH_MIXED_PARTS))
             .build();
 
-    Exception e = assertThrows(IllegalArgumentException.class, () -> response.functionCalls());
-    assertEquals(
-        String.format("Only function call parts are supported, but got %s", PART_1),
-        e.getMessage());
+    ImmutableList<FunctionCall> result = response.functionCalls();
+
+    assertEquals(1, result.size());
+    assertEquals(FUNCTION_CALL_1, result.get(0));
+  }
+
+  @Test
+  public void testExecutableCode_EmptyCandidates() {
+    GenerateContentResponse response = GenerateContentResponse.builder().build();
+
+    String result = response.executableCode();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testExecutableCode_EmptyContent() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(ImmutableList.of(Candidate.builder().build()))
+            .build();
+
+    String result = response.executableCode();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testExecutableCode_EmptyParts() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(ImmutableList.of(CANDIDATE_WITH_EMPTY_PARTS))
+            .build();
+
+    String result = response.executableCode();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testExecutableCode_MultipleCandidates() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_EXECUTABLE_CODE)
+                        .finishReason("STOP")
+                        .build(),
+                CANDIDATE_1))
+            .build();
+
+    String result = response.executableCode();
+
+    assertEquals("executableCode", result);
+  }
+
+  @Test
+  public void testExecutableCode_PartWithExecutableCode() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_EXECUTABLE_CODE)
+                        .finishReason("STOP")
+                        .build()))
+            .build();
+
+    String result = response.executableCode();
+
+    assertEquals("executableCode", result);
+  }
+
+
+  @Test
+  public void testExecutableCode_TextPart() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder().candidates(ImmutableList.of(CANDIDATE_1)).build();
+
+    String result = response.executableCode();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testExecutableCode_MultipleParts() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_EXECUTABLE_CODE_AND_TEXT)
+                        .finishReason("STOP")
+                        .build()))
+            .build();
+
+    String result = response.executableCode();
+
+    assertEquals("executableCode", result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_EmptyCandidates() {
+    GenerateContentResponse response = GenerateContentResponse.builder().build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_EmptyContent() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(ImmutableList.of(Candidate.builder().build()))
+            .build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_EmptyParts() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(ImmutableList.of(CANDIDATE_WITH_EMPTY_PARTS))
+            .build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_MultipleCandidates() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_CODE_EXECUTION_RESULT)
+                        .finishReason("STOP")
+                        .build(),
+                    CANDIDATE_1))
+            .build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals("codeExecutionResult", result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_PartWithCodeExecutionResult() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_CODE_EXECUTION_RESULT)
+                        .finishReason("STOP")
+                        .build()))
+            .build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals("codeExecutionResult", result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_TextPart() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder().candidates(ImmutableList.of(CANDIDATE_1)).build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testCodeExecutionResult_MultipleParts() {
+    GenerateContentResponse response =
+        GenerateContentResponse.builder()
+            .candidates(
+                ImmutableList.of(
+                    Candidate.builder()
+                        .content(CONTENT_WITH_CODE_EXECUTION_RESULT_AND_TEXT)
+                        .finishReason("STOP")
+                        .build()))
+            .build();
+
+    String result = response.codeExecutionResult();
+
+    assertEquals("codeExecutionResult", result);
   }
 }

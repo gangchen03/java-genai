@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Retrieve from Vertex RAG Store for grounding. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_VertexRagStore.Builder.class)
+@JsonDeserialize(builder = VertexRagStore.Builder.class)
 public abstract class VertexRagStore extends JsonSerializable {
   /** Optional. Deprecated. Please use rag_resources instead. */
   @JsonProperty("ragCorpora")
@@ -60,6 +61,12 @@ public abstract class VertexRagStore extends JsonSerializable {
   /** Builder for VertexRagStore. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `VertexRagStore.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_VertexRagStore.Builder();
+    }
+
     @JsonProperty("ragCorpora")
     public abstract Builder ragCorpora(List<String> ragCorpora);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** HTTP options to be used in each of the requests. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_HttpOptions.Builder.class)
+@JsonDeserialize(builder = HttpOptions.Builder.class)
 public abstract class HttpOptions extends JsonSerializable {
   /** The base URL for the AI platform service endpoint. */
   @JsonProperty("baseUrl")
@@ -56,6 +57,12 @@ public abstract class HttpOptions extends JsonSerializable {
   /** Builder for HttpOptions. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `HttpOptions.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_HttpOptions.Builder();
+    }
+
     @JsonProperty("baseUrl")
     public abstract Builder baseUrl(String baseUrl);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Describes the options to customize dynamic retrieval. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_DynamicRetrievalConfig.Builder.class)
+@JsonDeserialize(builder = DynamicRetrievalConfig.Builder.class)
 public abstract class DynamicRetrievalConfig extends JsonSerializable {
   /** The mode of the predictor to be used in dynamic retrieval. */
   @JsonProperty("mode")
@@ -50,6 +51,12 @@ public abstract class DynamicRetrievalConfig extends JsonSerializable {
   /** Builder for DynamicRetrievalConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `DynamicRetrievalConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_DynamicRetrievalConfig.Builder();
+    }
+
     @JsonProperty("mode")
     public abstract Builder mode(String mode);
 

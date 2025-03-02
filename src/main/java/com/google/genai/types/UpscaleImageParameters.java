@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** User-facing config UpscaleImageParameters. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_UpscaleImageParameters.Builder.class)
+@JsonDeserialize(builder = UpscaleImageParameters.Builder.class)
 public abstract class UpscaleImageParameters extends JsonSerializable {
   /** The model to use. */
   @JsonProperty("model")
@@ -55,6 +56,12 @@ public abstract class UpscaleImageParameters extends JsonSerializable {
   /** Builder for UpscaleImageParameters. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `UpscaleImageParameters.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_UpscaleImageParameters.Builder();
+    }
+
     @JsonProperty("model")
     public abstract Builder model(String model);
 

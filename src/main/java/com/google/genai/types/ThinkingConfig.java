@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** The thinking features configuration. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ThinkingConfig.Builder.class)
+@JsonDeserialize(builder = ThinkingConfig.Builder.class)
 public abstract class ThinkingConfig extends JsonSerializable {
   /**
    * Indicates whether to include thoughts in the response. If true, thoughts are returned only if
@@ -46,6 +47,12 @@ public abstract class ThinkingConfig extends JsonSerializable {
   /** Builder for ThinkingConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ThinkingConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ThinkingConfig.Builder();
+    }
+
     @JsonProperty("includeThoughts")
     public abstract Builder includeThoughts(boolean includeThoughts);
 

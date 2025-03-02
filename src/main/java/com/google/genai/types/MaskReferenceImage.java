@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -34,7 +35,7 @@ import java.util.Optional;
  * user provides a mask image, the mask must be in the same dimensions as the raw image.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_MaskReferenceImage.Builder.class)
+@JsonDeserialize(builder = MaskReferenceImage.Builder.class)
 public abstract class MaskReferenceImage extends JsonSerializable {
   /** The reference image for the editing operation. */
   @JsonProperty("referenceImage")
@@ -44,7 +45,7 @@ public abstract class MaskReferenceImage extends JsonSerializable {
   @JsonProperty("referenceId")
   public abstract Optional<Integer> referenceId();
 
-  /** The type of the reference image. */
+  /** The type of the reference image. Only set by the SDK. */
   @JsonProperty("referenceType")
   public abstract Optional<String> referenceType();
 
@@ -63,6 +64,12 @@ public abstract class MaskReferenceImage extends JsonSerializable {
   /** Builder for MaskReferenceImage. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `MaskReferenceImage.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_MaskReferenceImage.Builder();
+    }
+
     @JsonProperty("referenceImage")
     public abstract Builder referenceImage(Image referenceImage);
 

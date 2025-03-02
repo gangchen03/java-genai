@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** A response candidate generated from the model. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Candidate.Builder.class)
+@JsonDeserialize(builder = Candidate.Builder.class)
 public abstract class Candidate extends JsonSerializable {
   /** Contains the multi-part content of the response. */
   @JsonProperty("content")
@@ -86,6 +87,12 @@ public abstract class Candidate extends JsonSerializable {
   /** Builder for Candidate. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Candidate.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Candidate.Builder();
+    }
+
     @JsonProperty("content")
     public abstract Builder content(Content content);
 

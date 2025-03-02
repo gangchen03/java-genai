@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -31,7 +32,7 @@ import java.util.Optional;
  * optionally be provided in addition to a mask reference image or a style reference image.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_RawReferenceImage.Builder.class)
+@JsonDeserialize(builder = RawReferenceImage.Builder.class)
 public abstract class RawReferenceImage extends JsonSerializable {
   /** The reference image for the editing operation. */
   @JsonProperty("referenceImage")
@@ -41,7 +42,7 @@ public abstract class RawReferenceImage extends JsonSerializable {
   @JsonProperty("referenceId")
   public abstract Optional<Integer> referenceId();
 
-  /** The type of the reference image. */
+  /** The type of the reference image. Only set by the SDK. */
   @JsonProperty("referenceType")
   public abstract Optional<String> referenceType();
 
@@ -56,6 +57,12 @@ public abstract class RawReferenceImage extends JsonSerializable {
   /** Builder for RawReferenceImage. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `RawReferenceImage.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_RawReferenceImage.Builder();
+    }
+
     @JsonProperty("referenceImage")
     public abstract Builder referenceImage(Image referenceImage);
 

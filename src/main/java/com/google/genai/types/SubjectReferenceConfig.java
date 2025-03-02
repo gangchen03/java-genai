@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Configuration for a Subject reference image. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_SubjectReferenceConfig.Builder.class)
+@JsonDeserialize(builder = SubjectReferenceConfig.Builder.class)
 public abstract class SubjectReferenceConfig extends JsonSerializable {
   /** The subject type of a subject reference image. */
   @JsonProperty("subjectType")
@@ -47,6 +48,12 @@ public abstract class SubjectReferenceConfig extends JsonSerializable {
   /** Builder for SubjectReferenceConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `SubjectReferenceConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_SubjectReferenceConfig.Builder();
+    }
+
     @JsonProperty("subjectType")
     public abstract Builder subjectType(String subjectType);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Tool to retrieve public web data for grounding, powered by Google. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GoogleSearchRetrieval.Builder.class)
+@JsonDeserialize(builder = GoogleSearchRetrieval.Builder.class)
 public abstract class GoogleSearchRetrieval extends JsonSerializable {
   /** Specifies the dynamic retrieval configuration for the given source. */
   @JsonProperty("dynamicRetrievalConfig")
@@ -43,6 +44,12 @@ public abstract class GoogleSearchRetrieval extends JsonSerializable {
   /** Builder for GoogleSearchRetrieval. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GoogleSearchRetrieval.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GoogleSearchRetrieval.Builder();
+    }
+
     @JsonProperty("dynamicRetrievalConfig")
     public abstract Builder dynamicRetrievalConfig(DynamicRetrievalConfig dynamicRetrievalConfig);
 

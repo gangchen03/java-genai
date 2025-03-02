@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Configuration for a Control reference image. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ControlReferenceConfig.Builder.class)
+@JsonDeserialize(builder = ControlReferenceConfig.Builder.class)
 public abstract class ControlReferenceConfig extends JsonSerializable {
   /** The type of control reference image to use. */
   @JsonProperty("controlType")
@@ -50,6 +51,12 @@ public abstract class ControlReferenceConfig extends JsonSerializable {
   /** Builder for ControlReferenceConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ControlReferenceConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ControlReferenceConfig.Builder();
+    }
+
     @JsonProperty("controlType")
     public abstract Builder controlType(String controlType);
 

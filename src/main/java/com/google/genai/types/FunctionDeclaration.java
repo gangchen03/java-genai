@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * <p>The inputs are based on `OpenAPI 3.0 specifications <https://spec.openapis.org/oas/v3.0.3>`_.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_FunctionDeclaration.Builder.class)
+@JsonDeserialize(builder = FunctionDeclaration.Builder.class)
 public abstract class FunctionDeclaration extends JsonSerializable {
   /** Describes the output from the function in the OpenAPI JSON Schema Object format. */
   @JsonProperty("response")
@@ -73,6 +74,12 @@ public abstract class FunctionDeclaration extends JsonSerializable {
   /** Builder for FunctionDeclaration. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `FunctionDeclaration.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_FunctionDeclaration.Builder();
+    }
+
     @JsonProperty("response")
     public abstract Builder response(Schema response);
 

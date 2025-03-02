@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
 import com.google.genai.JsonSerializable;
@@ -28,7 +29,7 @@ import com.google.genai.JsonSerializable;
  * tool.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ToolCodeExecution.Builder.class)
+@JsonDeserialize(builder = ToolCodeExecution.Builder.class)
 public abstract class ToolCodeExecution extends JsonSerializable {
   /** Instantiates a builder for ToolCodeExecution. */
   public static Builder builder() {
@@ -41,6 +42,12 @@ public abstract class ToolCodeExecution extends JsonSerializable {
   /** Builder for ToolCodeExecution. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ToolCodeExecution.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ToolCodeExecution.Builder();
+    }
+
     public abstract ToolCodeExecution build();
   }
 

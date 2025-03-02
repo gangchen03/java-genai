@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** The configuration for routing the request to a specific model. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GenerationConfigRoutingConfig.Builder.class)
+@JsonDeserialize(builder = GenerationConfigRoutingConfig.Builder.class)
 public abstract class GenerationConfigRoutingConfig extends JsonSerializable {
   /** Automated routing. */
   @JsonProperty("autoMode")
@@ -47,6 +48,14 @@ public abstract class GenerationConfigRoutingConfig extends JsonSerializable {
   /** Builder for GenerationConfigRoutingConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /**
+     * For internal usage. Please use `GenerationConfigRoutingConfig.builder()` for instantiation.
+     */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GenerationConfigRoutingConfig.Builder();
+    }
+
     @JsonProperty("autoMode")
     public abstract Builder autoMode(GenerationConfigRoutingConfigAutoRoutingMode autoMode);
 

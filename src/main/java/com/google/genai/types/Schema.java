@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -32,7 +33,7 @@ import java.util.Optional;
  * <p>Represents a select subset of an OpenAPI 3.0 schema object.
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Schema.Builder.class)
+@JsonDeserialize(builder = Schema.Builder.class)
 public abstract class Schema extends JsonSerializable {
   /** Optional. Minimum number of the elements for Type.ARRAY. */
   @JsonProperty("minItems")
@@ -149,6 +150,12 @@ public abstract class Schema extends JsonSerializable {
   /** Builder for Schema. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Schema.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Schema.Builder();
+    }
+
     @JsonProperty("minItems")
     public abstract Builder minItems(Long minItems);
 

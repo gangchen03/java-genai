@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * [Mode.CODE].
  */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ExecutableCode.Builder.class)
+@JsonDeserialize(builder = ExecutableCode.Builder.class)
 public abstract class ExecutableCode extends JsonSerializable {
   /** Required. The code to be executed. */
   @JsonProperty("code")
@@ -51,6 +52,12 @@ public abstract class ExecutableCode extends JsonSerializable {
   /** Builder for ExecutableCode. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ExecutableCode.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ExecutableCode.Builder();
+    }
+
     @JsonProperty("code")
     public abstract Builder code(String code);
 

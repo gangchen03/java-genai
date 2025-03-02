@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** A function response. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_FunctionResponse.Builder.class)
+@JsonDeserialize(builder = FunctionResponse.Builder.class)
 public abstract class FunctionResponse extends JsonSerializable {
   /**
    * The id of the function call this response is for. Populated by the client to match the
@@ -62,6 +63,12 @@ public abstract class FunctionResponse extends JsonSerializable {
   /** Builder for FunctionResponse. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `FunctionResponse.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_FunctionResponse.Builder();
+    }
+
     @JsonProperty("id")
     public abstract Builder id(String id);
 

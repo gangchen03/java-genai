@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Grounding chunk. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_GroundingChunk.Builder.class)
+@JsonDeserialize(builder = GroundingChunk.Builder.class)
 public abstract class GroundingChunk extends JsonSerializable {
   /** Grounding chunk from context retrieved by the retrieval tools. */
   @JsonProperty("retrievedContext")
@@ -47,6 +48,12 @@ public abstract class GroundingChunk extends JsonSerializable {
   /** Builder for GroundingChunk. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `GroundingChunk.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_GroundingChunk.Builder();
+    }
+
     @JsonProperty("retrievedContext")
     public abstract Builder retrievedContext(GroundingChunkRetrievedContext retrievedContext);
 

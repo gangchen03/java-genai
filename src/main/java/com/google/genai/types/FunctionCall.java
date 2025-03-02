@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** A function call. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_FunctionCall.Builder.class)
+@JsonDeserialize(builder = FunctionCall.Builder.class)
 public abstract class FunctionCall extends JsonSerializable {
   /**
    * The unique id of the function call. If populated, the client to execute the `function_call` and
@@ -58,6 +59,12 @@ public abstract class FunctionCall extends JsonSerializable {
   /** Builder for FunctionCall. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `FunctionCall.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_FunctionCall.Builder();
+    }
+
     @JsonProperty("id")
     public abstract Builder id(String id);
 

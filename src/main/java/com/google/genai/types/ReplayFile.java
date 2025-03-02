@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Represents a recorded session. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_ReplayFile.Builder.class)
+@JsonDeserialize(builder = ReplayFile.Builder.class)
 public abstract class ReplayFile extends JsonSerializable {
   /** */
   @JsonProperty("replayId")
@@ -48,6 +49,12 @@ public abstract class ReplayFile extends JsonSerializable {
   /** Builder for ReplayFile. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `ReplayFile.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_ReplayFile.Builder();
+    }
+
     @JsonProperty("replayId")
     public abstract Builder replayId(String replayId);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Tool details of a tool that the model may use to generate a response. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Tool.Builder.class)
+@JsonDeserialize(builder = Tool.Builder.class)
 public abstract class Tool extends JsonSerializable {
   /** List of function declarations that the tool supports. */
   @JsonProperty("functionDeclarations")
@@ -72,6 +73,12 @@ public abstract class Tool extends JsonSerializable {
   /** Builder for Tool. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Tool.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Tool.Builder();
+    }
+
     @JsonProperty("functionDeclarations")
     public abstract Builder functionDeclarations(List<FunctionDeclaration> functionDeclarations);
 

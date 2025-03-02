@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Logprobs Result */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_LogprobsResult.Builder.class)
+@JsonDeserialize(builder = LogprobsResult.Builder.class)
 public abstract class LogprobsResult extends JsonSerializable {
   /**
    * Length = total number of decoding steps. The chosen candidates may or may not be in
@@ -51,6 +52,12 @@ public abstract class LogprobsResult extends JsonSerializable {
   /** Builder for LogprobsResult. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `LogprobsResult.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_LogprobsResult.Builder();
+    }
+
     @JsonProperty("chosenCandidates")
     public abstract Builder chosenCandidates(List<LogprobsResultCandidate> chosenCandidates);
 

@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Function calling config. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_FunctionCallingConfig.Builder.class)
+@JsonDeserialize(builder = FunctionCallingConfig.Builder.class)
 public abstract class FunctionCallingConfig extends JsonSerializable {
   /** Optional. Function calling mode. */
   @JsonProperty("mode")
@@ -52,6 +53,12 @@ public abstract class FunctionCallingConfig extends JsonSerializable {
   /** Builder for FunctionCallingConfig. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `FunctionCallingConfig.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_FunctionCallingConfig.Builder();
+    }
+
     @JsonProperty("mode")
     public abstract Builder mode(String mode);
 

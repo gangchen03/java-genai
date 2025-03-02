@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** Citation information when the model quotes another source. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_CitationMetadata.Builder.class)
+@JsonDeserialize(builder = CitationMetadata.Builder.class)
 public abstract class CitationMetadata extends JsonSerializable {
   /**
    * Contains citation information when the model directly quotes, at length, from another source.
@@ -47,6 +48,12 @@ public abstract class CitationMetadata extends JsonSerializable {
   /** Builder for CitationMetadata. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `CitationMetadata.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_CitationMetadata.Builder();
+    }
+
     @JsonProperty("citations")
     public abstract Builder citations(List<Citation> citations);
 

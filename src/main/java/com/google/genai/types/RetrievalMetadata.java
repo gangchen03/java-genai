@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Metadata related to retrieval in the grounding flow. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_RetrievalMetadata.Builder.class)
+@JsonDeserialize(builder = RetrievalMetadata.Builder.class)
 public abstract class RetrievalMetadata extends JsonSerializable {
   /**
    * Optional. Score indicating how likely information from Google Search could help answer the
@@ -48,6 +49,12 @@ public abstract class RetrievalMetadata extends JsonSerializable {
   /** Builder for RetrievalMetadata. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `RetrievalMetadata.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_RetrievalMetadata.Builder();
+    }
+
     @JsonProperty("googleSearchDynamicRetrievalScore")
     public abstract Builder googleSearchDynamicRetrievalScore(
         Float googleSearchDynamicRetrievalScore);

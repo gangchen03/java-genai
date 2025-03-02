@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 /** Segment of the content. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_Segment.Builder.class)
+@JsonDeserialize(builder = Segment.Builder.class)
 public abstract class Segment extends JsonSerializable {
   /**
    * Output only. End index in the given Part, measured in bytes. Offset from the start of the Part,
@@ -61,6 +62,12 @@ public abstract class Segment extends JsonSerializable {
   /** Builder for Segment. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `Segment.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_Segment.Builder();
+    }
+
     @JsonProperty("endIndex")
     public abstract Builder endIndex(Integer endIndex);
 

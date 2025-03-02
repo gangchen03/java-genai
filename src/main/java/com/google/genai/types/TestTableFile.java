@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** None */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_TestTableFile.Builder.class)
+@JsonDeserialize(builder = TestTableFile.Builder.class)
 public abstract class TestTableFile extends JsonSerializable {
   /** */
   @JsonProperty("comment")
@@ -56,6 +57,12 @@ public abstract class TestTableFile extends JsonSerializable {
   /** Builder for TestTableFile. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `TestTableFile.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_TestTableFile.Builder();
+    }
+
     @JsonProperty("comment")
     public abstract Builder comment(String comment);
 

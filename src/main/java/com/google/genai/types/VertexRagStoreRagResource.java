@@ -18,6 +18,7 @@
 
 package com.google.genai.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -27,7 +28,7 @@ import java.util.Optional;
 
 /** The definition of the Rag resource. */
 @AutoValue
-@JsonDeserialize(builder = AutoValue_VertexRagStoreRagResource.Builder.class)
+@JsonDeserialize(builder = VertexRagStoreRagResource.Builder.class)
 public abstract class VertexRagStoreRagResource extends JsonSerializable {
   /**
    * Optional. RagCorpora resource name. Format:
@@ -51,6 +52,12 @@ public abstract class VertexRagStoreRagResource extends JsonSerializable {
   /** Builder for VertexRagStoreRagResource. */
   @AutoValue.Builder
   public abstract static class Builder {
+    /** For internal usage. Please use `VertexRagStoreRagResource.builder()` for instantiation. */
+    @JsonCreator
+    private static Builder create() {
+      return new AutoValue_VertexRagStoreRagResource.Builder();
+    }
+
     @JsonProperty("ragCorpus")
     public abstract Builder ragCorpus(String ragCorpus);
 

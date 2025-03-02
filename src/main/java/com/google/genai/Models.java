@@ -29,6 +29,11 @@ import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.GenerateImagesConfig;
 import com.google.genai.types.GenerateImagesParameters;
 import com.google.genai.types.GenerateImagesResponse;
+import com.google.genai.types.Image;
+import com.google.genai.types.UpscaleImageAPIConfig;
+import com.google.genai.types.UpscaleImageAPIParameters;
+import com.google.genai.types.UpscaleImageConfig;
+import com.google.genai.types.UpscaleImageResponse;
 import java.io.IOException;
 import java.util.List;
 import org.apache.http.HttpEntity;
@@ -1543,6 +1548,13 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"numberOfImages"}));
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"aspectRatio"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "aspectRatio"},
+          Common.getValueByPath(fromObject, new String[] {"aspectRatio"}));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"guidanceScale"}) != null) {
       Common.setValueByPath(
           parentObject,
@@ -1607,13 +1619,6 @@ public final class Models {
       throw new Error("addWatermark parameter is not supported in Gemini API.");
     }
 
-    if (Common.getValueByPath(fromObject, new String[] {"aspectRatio"}) != null) {
-      Common.setValueByPath(
-          parentObject,
-          new String[] {"parameters", "aspectRatio"},
-          Common.getValueByPath(fromObject, new String[] {"aspectRatio"}));
-    }
-
     if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"enhancePrompt"}))) {
       throw new Error("enhancePrompt parameter is not supported in Gemini API.");
     }
@@ -1644,6 +1649,13 @@ public final class Models {
           parentObject,
           new String[] {"parameters", "sampleCount"},
           Common.getValueByPath(fromObject, new String[] {"numberOfImages"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"aspectRatio"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "aspectRatio"},
+          Common.getValueByPath(fromObject, new String[] {"aspectRatio"}));
     }
 
     if (Common.getValueByPath(fromObject, new String[] {"guidanceScale"}) != null) {
@@ -1716,13 +1728,6 @@ public final class Models {
           Common.getValueByPath(fromObject, new String[] {"addWatermark"}));
     }
 
-    if (Common.getValueByPath(fromObject, new String[] {"aspectRatio"}) != null) {
-      Common.setValueByPath(
-          parentObject,
-          new String[] {"parameters", "aspectRatio"},
-          Common.getValueByPath(fromObject, new String[] {"aspectRatio"}));
-    }
-
     if (Common.getValueByPath(fromObject, new String[] {"enhancePrompt"}) != null) {
       Common.setValueByPath(
           parentObject,
@@ -1788,6 +1793,227 @@ public final class Models {
           toObject,
           new String[] {"config"},
           GenerateImagesConfigToVertex(
+              apiClient,
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"config"})),
+              toObject));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode ImageToMldev(ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (!Common.isZero(Common.getValueByPath(fromObject, new String[] {"gcsUri"}))) {
+      throw new Error("gcsUri parameter is not supported in Gemini API.");
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"imageBytes"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"bytesBase64Encoded"},
+          Transformers.tBytes(
+              this.apiClient, Common.getValueByPath(fromObject, new String[] {"imageBytes"})));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"mimeType"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"mimeType"},
+          Common.getValueByPath(fromObject, new String[] {"mimeType"}));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode ImageToVertex(ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"gcsUri"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"gcsUri"},
+          Common.getValueByPath(fromObject, new String[] {"gcsUri"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"imageBytes"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"bytesBase64Encoded"},
+          Transformers.tBytes(
+              this.apiClient, Common.getValueByPath(fromObject, new String[] {"imageBytes"})));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"mimeType"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"mimeType"},
+          Common.getValueByPath(fromObject, new String[] {"mimeType"}));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode UpscaleImageAPIConfigToMldev(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
+    if (Common.getValueByPath(fromObject, new String[] {"includeRaiReason"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "includeRaiReason"},
+          Common.getValueByPath(fromObject, new String[] {"includeRaiReason"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"outputMimeType"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "outputOptions", "mimeType"},
+          Common.getValueByPath(fromObject, new String[] {"outputMimeType"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"outputCompressionQuality"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "outputOptions", "compressionQuality"},
+          Common.getValueByPath(fromObject, new String[] {"outputCompressionQuality"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"numberOfImages"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "sampleCount"},
+          Common.getValueByPath(fromObject, new String[] {"numberOfImages"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"mode"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "mode"},
+          Common.getValueByPath(fromObject, new String[] {"mode"}));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode UpscaleImageAPIConfigToVertex(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+
+    if (Common.getValueByPath(fromObject, new String[] {"includeRaiReason"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "includeRaiReason"},
+          Common.getValueByPath(fromObject, new String[] {"includeRaiReason"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"outputMimeType"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "outputOptions", "mimeType"},
+          Common.getValueByPath(fromObject, new String[] {"outputMimeType"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"outputCompressionQuality"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "outputOptions", "compressionQuality"},
+          Common.getValueByPath(fromObject, new String[] {"outputCompressionQuality"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"numberOfImages"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "sampleCount"},
+          Common.getValueByPath(fromObject, new String[] {"numberOfImages"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"mode"}) != null) {
+      Common.setValueByPath(
+          parentObject,
+          new String[] {"parameters", "mode"},
+          Common.getValueByPath(fromObject, new String[] {"mode"}));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode UpscaleImageAPIParametersToMldev(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"model"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"_url", "model"},
+          Transformers.tModel(
+              this.apiClient, Common.getValueByPath(fromObject, new String[] {"model"})));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"image"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"instances", "image"},
+          ImageToMldev(
+              apiClient,
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"image"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"upscaleFactor"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"parameters", "upscaleConfig", "upscaleFactor"},
+          Common.getValueByPath(fromObject, new String[] {"upscaleFactor"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"config"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"config"},
+          UpscaleImageAPIConfigToMldev(
+              apiClient,
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"config"})),
+              toObject));
+    }
+
+    return toObject;
+  }
+
+  ObjectNode UpscaleImageAPIParametersToVertex(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"model"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"_url", "model"},
+          Transformers.tModel(
+              this.apiClient, Common.getValueByPath(fromObject, new String[] {"model"})));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"image"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"instances", "image"},
+          ImageToVertex(
+              apiClient,
+              JsonSerializable.toJsonNode(
+                  Common.getValueByPath(fromObject, new String[] {"image"})),
+              toObject));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"upscaleFactor"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"parameters", "upscaleConfig", "upscaleFactor"},
+          Common.getValueByPath(fromObject, new String[] {"upscaleFactor"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"config"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"config"},
+          UpscaleImageAPIConfigToVertex(
               apiClient,
               JsonSerializable.toJsonNode(
                   Common.getValueByPath(fromObject, new String[] {"config"})),
@@ -2210,6 +2436,20 @@ public final class Models {
       Common.setValueByPath(toObject, new String[] {"candidates"}, result);
     }
 
+    if (Common.getValueByPath(fromObject, new String[] {"createTime"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"createTime"},
+          Common.getValueByPath(fromObject, new String[] {"createTime"}));
+    }
+
+    if (Common.getValueByPath(fromObject, new String[] {"responseId"}) != null) {
+      Common.setValueByPath(
+          toObject,
+          new String[] {"responseId"},
+          Common.getValueByPath(fromObject, new String[] {"responseId"}));
+    }
+
     if (Common.getValueByPath(fromObject, new String[] {"modelVersion"}) != null) {
       Common.setValueByPath(
           toObject,
@@ -2379,7 +2619,47 @@ public final class Models {
     return toObject;
   }
 
-  public GenerateContentResponse generateContent(
+  ObjectNode UpscaleImageResponseFromMldev(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"predictions"}) != null) {
+      ArrayNode keyArray =
+          (ArrayNode) Common.getValueByPath(fromObject, new String[] {"predictions"});
+      ObjectMapper objectMapper = new ObjectMapper();
+      ArrayNode result = objectMapper.createArrayNode();
+
+      keyArray.forEach(
+          item -> {
+            result.add(
+                GeneratedImageFromMldev(apiClient, JsonSerializable.toJsonNode(item), toObject));
+          });
+      Common.setValueByPath(toObject, new String[] {"generatedImages"}, result);
+    }
+
+    return toObject;
+  }
+
+  ObjectNode UpscaleImageResponseFromVertex(
+      ApiClient apiClient, JsonNode fromObject, ObjectNode parentObject) {
+    ObjectNode toObject = JsonSerializable.objectMapper.createObjectNode();
+    if (Common.getValueByPath(fromObject, new String[] {"predictions"}) != null) {
+      ArrayNode keyArray =
+          (ArrayNode) Common.getValueByPath(fromObject, new String[] {"predictions"});
+      ObjectMapper objectMapper = new ObjectMapper();
+      ArrayNode result = objectMapper.createArrayNode();
+
+      keyArray.forEach(
+          item -> {
+            result.add(
+                GeneratedImageFromVertex(apiClient, JsonSerializable.toJsonNode(item), toObject));
+          });
+      Common.setValueByPath(toObject, new String[] {"generatedImages"}, result);
+    }
+
+    return toObject;
+  }
+
+  private GenerateContentResponse privateGenerateContent(
       String model, List<Content> contents, GenerateContentConfig config)
       throws IOException, HttpException {
 
@@ -2422,7 +2702,7 @@ public final class Models {
     }
   }
 
-  public ResponseStream<GenerateContentResponse> generateContentStream(
+  private ResponseStream<GenerateContentResponse> privateGenerateContentStream(
       String model, List<Content> contents, GenerateContentConfig config)
       throws IOException, HttpException {
 
@@ -2505,6 +2785,70 @@ public final class Models {
     }
   }
 
+  private UpscaleImageResponse privateUpscaleImage(
+      String model, Image image, String upscaleFactor, UpscaleImageAPIConfig config)
+      throws IOException, HttpException {
+
+    UpscaleImageAPIParameters.Builder parameterBuilder = UpscaleImageAPIParameters.builder();
+
+    if (!Common.isZero(model)) {
+      parameterBuilder.model(model);
+    }
+    if (!Common.isZero(image)) {
+      parameterBuilder.image(image);
+    }
+    if (!Common.isZero(upscaleFactor)) {
+      parameterBuilder.upscaleFactor(upscaleFactor);
+    }
+    if (!Common.isZero(config)) {
+      parameterBuilder.config(config);
+    }
+    JsonNode parameterNode = JsonSerializable.toJsonNode(parameterBuilder.build());
+
+    ObjectNode body;
+    String path;
+    if (this.apiClient.isVertexAI()) {
+      body = UpscaleImageAPIParametersToVertex(this.apiClient, parameterNode, null);
+      path = Common.formatMap("{model}:predict", body.get("_url"));
+    } else {
+      body = UpscaleImageAPIParametersToMldev(this.apiClient, parameterNode, null);
+      path = Common.formatMap("None", body.get("_url"));
+    }
+    body.remove("_url");
+    // TODO: Remove the hack that removes config.
+    body.remove("config");
+
+    try (ApiResponse response = this.apiClient.post(path, JsonSerializable.toJsonString(body))) {
+      HttpEntity entity = response.getEntity();
+      String responseString = EntityUtils.toString(entity);
+      JsonNode responseNode = JsonSerializable.objectMapper.readTree(responseString);
+      if (this.apiClient.isVertexAI()) {
+        responseNode = UpscaleImageResponseFromVertex(this.apiClient, responseNode, null);
+      } else {
+        responseNode = UpscaleImageResponseFromMldev(this.apiClient, responseNode, null);
+      }
+      return JsonSerializable.fromJsonNode(responseNode, UpscaleImageResponse.class);
+    }
+  }
+
+  /**
+   * Generates content given a GenAI model and a content object.
+   *
+   * @param model the name of the GenAI model to use for generation
+   * @param contents a {@link List<com.google.genai.types.Content>} to send to the generative model
+   * @param config a {@link com.google.genai.types.GenerateContentConfig} instance that specifies
+   *     the optional configurations
+   * @return a {@link com.google.genai.types.GenerateContentResponse} instance that contains
+   *     response contents and other metadata
+   * @throws IOException if an I/O error occurs while making the API call
+   * @throws HttpException if an HTTP error occurs while making the API call
+   */
+  public GenerateContentResponse generateContent(
+      String model, List<Content> contents, GenerateContentConfig config)
+      throws IOException, HttpException {
+    return privateGenerateContent(model, contents, config);
+  }
+
   /**
    * Generates content given a GenAI model and a content object.
    *
@@ -2520,7 +2864,8 @@ public final class Models {
   public GenerateContentResponse generateContent(
       String model, Content content, GenerateContentConfig config)
       throws IOException, HttpException {
-    return generateContent(model, Transformers.tContents(this.apiClient, (Object) content), config);
+    return privateGenerateContent(
+        model, Transformers.tContents(this.apiClient, (Object) content), config);
   }
 
   /**
@@ -2537,7 +2882,26 @@ public final class Models {
    */
   public GenerateContentResponse generateContent(
       String model, String text, GenerateContentConfig config) throws IOException, HttpException {
-    return generateContent(model, Transformers.tContents(this.apiClient, (Object) text), config);
+    return privateGenerateContent(
+        model, Transformers.tContents(this.apiClient, (Object) text), config);
+  }
+
+  /**
+   * Generates content with streaming support given a GenAI model and a content object.
+   *
+   * @param model the name of the GenAI model to use for generation
+   * @param contents a {@link List<com.google.genai.types.Content>} to send to the generative model
+   * @param config a {@link com.google.genai.types.GenerateContentConfig} instance that specifies
+   *     the optional configurations
+   * @return a {@link com.google.genai.types.GenerateContentResponse} instance that contains
+   *     response contents and other metadata
+   * @throws IOException if an I/O error occurs while making the API call
+   * @throws HttpException if an HTTP error occurs while making the API call
+   */
+  public ResponseStream<GenerateContentResponse> generateContentStream(
+      String model, List<Content> contents, GenerateContentConfig config)
+      throws IOException, HttpException {
+    return privateGenerateContentStream(model, contents, config);
   }
 
   /**
@@ -2555,7 +2919,7 @@ public final class Models {
   public ResponseStream<GenerateContentResponse> generateContentStream(
       String model, Content content, GenerateContentConfig config)
       throws IOException, HttpException {
-    return generateContentStream(
+    return privateGenerateContentStream(
         model, Transformers.tContents(this.apiClient, (Object) content), config);
   }
 
@@ -2573,7 +2937,45 @@ public final class Models {
    */
   public ResponseStream<GenerateContentResponse> generateContentStream(
       String model, String text, GenerateContentConfig config) throws IOException, HttpException {
-    return generateContentStream(
+    return privateGenerateContentStream(
         model, Transformers.tContents(this.apiClient, (Object) text), config);
+  }
+
+  /**
+   * Upscales an image given a GenAI model and an image and an upscale factor.
+   *
+   * @param model the name of the GenAI model to use for upscaling
+   * @param image a {@link com.google.genai.types.Image} to send to the generative model
+   * @param upscaleFactor the factor to upscale the image
+   * @param config a {@link com.google.genai.types.UpscaleImageConfig} instance that specifies the
+   *     optional configurations
+   * @return a {@link com.google.genai.types.UpscaleImageResponse} instance that contains the
+   *     upscaled image.
+   * @throws IOException if an I/O error occurs while making the API call
+   * @throws HttpException if an HTTP error occurs while making the API call
+   */
+  public UpscaleImageResponse upscaleImage(
+      String model, Image image, String upscaleFactor, UpscaleImageConfig config)
+      throws IOException, HttpException {
+
+    UpscaleImageAPIConfig.Builder builder = UpscaleImageAPIConfig.builder();
+    if (config != null) {
+      if (config.outputMimeType().isPresent()) {
+        builder = builder.outputMimeType(config.outputMimeType().get());
+      }
+      if (config.outputCompressionQuality().isPresent()) {
+        builder = builder.outputCompressionQuality(config.outputCompressionQuality().get());
+      }
+      if (config.includeRaiReason().isPresent()) {
+        builder = builder.includeRaiReason(config.includeRaiReason().get());
+      }
+    }
+
+    builder = builder.mode("upscale");
+    builder = builder.numberOfImages(1);
+
+    UpscaleImageAPIConfig apiConfig = builder.build();
+
+    return privateUpscaleImage(model, image, upscaleFactor, apiConfig);
   }
 }
