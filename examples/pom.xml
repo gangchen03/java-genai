@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.google.genai.examples</groupId>
   <artifactId>google-genai-examples</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
   <name>google-genai-examples</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <google-genai.version>0.2.0-SNAPSHOT</google-genai.version>
+    <google-genai.version>0.1.0</google-genai.version>
+    <google-cloud-core.version>2.29.0</google-cloud-core.version>
+    <google-auth.version>1.20.0</google-auth.version>
   </properties>
 
   <dependencies>
@@ -22,5 +23,26 @@
       <artifactId>google-genai</artifactId>
       <version>${google-genai.version}</version>
     </dependency>
+    <dependency>
+      <groupId>jakarta.websocket</groupId>
+      <artifactId>jakarta.websocket-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.tyrus.bundles</groupId>
+      <artifactId>tyrus-standalone-client</artifactId>
+      <version>2.1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.json</groupId>
+      <artifactId>jakarta.json-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+     <dependency>
+        <groupId>com.google.auth</groupId>
+        <artifactId>google-auth-library-oauth2-http</artifactId>
+        <version>${google-auth.version}</version>
+    </dependency>
+
   </dependencies>
 </project>
